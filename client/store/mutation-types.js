@@ -1,0 +1,15 @@
+export const TOGGLE_DEVICE = 'TOGGLE_DEVICE'
+
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
+
+export const EXPAND_MENU = 'EXPAND_MENU'
+
+export const SWITCH_EFFECT = 'SWITCH_EFFECT'
+
+export const SET_NOVEL = 'SET_NOVEL'
+
+export const SET_NOVEL_ID = 'SET_NOVEL_ID'
+
+export const SET_VOLUME_ID = 'SET_VOLUME_ID'
+
+export const SET_CHAPTER_INDEX = 'SET_CHAPTER_INDEX'
