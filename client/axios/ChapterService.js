@@ -16,6 +16,10 @@ class ChapterService {
     delete(id) {
         return http.delete(`/chapter/${id}`)
     }
+
+    updateIndex(data) {
+        return http.put(`/chapter/updateIndex`, data)
+    }
 }
 
 export default new ChapterService()

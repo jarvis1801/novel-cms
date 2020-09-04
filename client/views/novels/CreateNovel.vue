@@ -30,13 +30,13 @@
             <p class="control">
                 <input type="file" ref="myFiles" @change="updateFile('main')" multiple>
             </p>
-            <span class="help is-danger" v-show="isError.thumbnailMain">Thumbnail Main cannot be empty</span>
+            <!-- <span class="help is-danger" v-show="isError.thumbnailMain">Thumbnail Main cannot be empty</span> -->
 
             <label class="label">Thumbnail Section</label>
             <p class="control">
                 <input type="file" ref="myFiles2" @change="updateFile('section')" multiple>
             </p>
-            <span class="help is-danger" v-show="isError.thumbnailSection">Thumbnail Section cannot be empty</span>
+            <!-- <span class="help is-danger" v-show="isError.thumbnailSection">Thumbnail Section cannot be empty</span> -->
 
             <label class="label">IsEnd</label>
             <p class="control">
@@ -95,9 +95,7 @@ export default {
         },
         isError: {
             name: false,
-            author: false,
-            thumbnailMain: false,
-            thumbnailSection: false
+            author: false
         },
         isEndOption: [
             { text: 'Yes', value: true },
@@ -123,12 +121,14 @@ export default {
       createNovel() {
           var isValid = true
           _.forEach(this.formData, (val, key) => {
-              if (_.size(_.toString(val)) === 0) {
-                  _.set(this.isError, key, true)
-                  isValid = false
-                  this.openMessageWithType('danger', 'Create Chapter', 'Create Chapter not successful')
-              } else {
-                  _.set(this.isError, key, false)
+              if (_.includes(_.keys(this.isError), key)) {
+                if (_.size(_.toString(val)) === 0) {
+                    _.set(this.isError, key, true)
+                    isValid = false
+                    this.openMessageWithType('danger', 'Create Chapter', 'Create Chapter not successful')
+                } else {
+                    _.set(this.isError, key, false)
+                }
               }
           })
 
@@ -139,7 +139,7 @@ export default {
           const formDataObj = new window.FormData()
           _.forEach(this.formData, (val, key) => {
             if (key === 'thumbnailMain' || key === 'thumbnailSection') {
-                formDataObj.append(key, _.head(val))
+                formDataObj.append(key, _.head(val) ? _.head(val) : null)
             } else {
                 formDataObj.append(key, val)
             }
@@ -148,7 +148,7 @@ export default {
           NovelService.createNovel(formDataObj)
             .then(response => {
                 this.openMessageWithType('success', 'Create Novel', 'Create Novel successful')
-                this.$router.replace('/novels')
+                this.$router.replace('/novels/list')
             })
             .catch(e => {
                 this.openMessageWithType('danger', 'Create Novel', 'Create Novel not successful')

@@ -13,3 +13,5 @@ export const SET_NOVEL_ID = 'SET_NOVEL_ID'
 export const SET_VOLUME_ID = 'SET_VOLUME_ID'
 
 export const SET_CHAPTER_INDEX = 'SET_CHAPTER_INDEX'
+
+export const SET_VOLUME_INDEX = 'SET_VOLUME_INDEX'

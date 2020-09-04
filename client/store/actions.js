@@ -43,3 +43,7 @@ export const setVolumeId = ({ commit }, volumeId) => {
 export const setCreateChapterIndex = ({ commit }, chapterIndex) => {
     commit(types.SET_CHAPTER_INDEX, chapterIndex)
 }
+
+export const setCreateVolumeIndex = ({ commit }, volumeIndex) => {
+    commit(types.SET_VOLUME_INDEX, volumeIndex)
+}

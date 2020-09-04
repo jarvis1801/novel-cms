@@ -11,29 +11,30 @@ import novels from './novels'
 // meta.label: display label
 
 const state = {
-    items: [{
-            name: 'Dashboard',
-            path: '/dashboard',
-            meta: {
-                icon: 'fa-tachometer',
-                link: 'dashboard/index.vue'
-            },
-            component: lazyLoading('dashboard', true)
-        },
-        {
-            name: 'Axios',
-            path: '/axiosDemo',
-            meta: {
-                auth: true,
-                icon: 'fa-rocket',
-                link: 'axios/index.vue'
-            },
-            component: lazyLoading('axios', true)
-        },
-        charts,
-        uifeatures,
-        components,
-        tables,
+    items: [
+        // {
+        //     name: 'Dashboard',
+        //     path: '/dashboard',
+        //     meta: {
+        //         icon: 'fa-tachometer',
+        //         link: 'dashboard/index.vue'
+        //     },
+        //     component: lazyLoading('dashboard', true)
+        // },
+        // {
+        //     name: 'Axios',
+        //     path: '/axiosDemo',
+        //     meta: {
+        //         auth: true,
+        //         icon: 'fa-rocket',
+        //         link: 'axios/index.vue'
+        //     },
+        //     component: lazyLoading('axios', true)
+        // },
+        // charts,
+        // uifeatures,
+        // components,
+        // tables,
         novels
     ]
 }

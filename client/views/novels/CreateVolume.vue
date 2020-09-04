@@ -59,7 +59,8 @@ export default {
     return {
         formData: {
             sectionName: null,
-            novelId: null
+            novelId: null,
+            index: null
         },
         isError: {
             sectionName: false
@@ -75,6 +76,7 @@ export default {
 
   created () {
       _.set(this.formData, 'novelId', this.novel.novel._id)
+      _.set(this.formData, 'index', this.novel.createVolumeIndex)
   },
 
   methods: {

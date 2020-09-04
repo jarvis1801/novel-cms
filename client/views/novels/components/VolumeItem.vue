@@ -1,5 +1,7 @@
 <template>
-    <div class="volume-container">
+    <div class="volume-container"
+        @mouseover="isMouseOver = true"
+        @mouseleave="isMouseOver = false">
         <div class="text-container">
             <div class="text-sub-container" @click="expandChapter">
                 <span class="icon">
@@ -19,7 +21,7 @@
                 </p>
             </div>
 
-            <draggable v-model="originData.chapterList" @end="dragEnd" :animation="150" v-if="isExpand">
+            <draggable v-model="originData.chapterList" @end="dragEnd" :animation="150" v-if="isExpand || isMouseOver">
                 <transition-group>
                     <chapter-item
                         v-for="chapter in originData.chapterList"
@@ -29,7 +31,7 @@
                 </transition-group>
             </draggable>
                 
-            <div class="img-add-chapter" @click="goCreateChapterPage" v-if="isExpand">
+            <div class="img-add-chapter" @click="goCreateChapterPage" v-if="isExpand || isMouseOver">
                 <router-link to="/novels/createChapter">
                     <img class="img_add" src="../../../assets/logo.png" />
                 </router-link>
@@ -69,7 +71,8 @@ export default {
                 novelId: null,
                 _id: null
             },
-            isExpand: false
+            isExpand: false,
+            isMouseOver: false
         }
     },
 
@@ -102,12 +105,19 @@ export default {
         },
 
         dragEnd() {
-            _.reduce(this.originData.chapterList, (result, val, key) => {
+            const list = _.reduce(this.originData.chapterList, (result, val, key) => {
                 const cloneObj = val
                 cloneObj['index'] = key
-                result.push(cloneObj)
+
+                const obj = {}
+                obj['id'] = cloneObj._id
+                obj['index'] = cloneObj.index
+
+                result.push(obj)
                 return result
             }, [])
+            console.log(list)
+            ChapterService.updateIndex(list)
         },
         expandChapter() {
             this.isExpand = !this.isExpand

@@ -5,7 +5,11 @@
       <article class="tile is-child box">
         <p class="control">
 
-          <draggable v-model="volumeList" :animation="150">
+          <router-link to="/novels/createVolume">
+            <img class="img_add" src="../../assets/logo.png" />
+          </router-link>
+
+          <draggable v-model="volumeList" :animation="150" @end="dragEnd">
             <transition-group>
               <volume-item
                 v-for="item in volumeList"
@@ -14,10 +18,6 @@
                 />
             </transition-group>
           </draggable>
-
-          <router-link to="/novels/createVolume">
-            <img class="img_add" src="../../assets/logo.png" />
-          </router-link>
         </p>
       </article>
       </div>
@@ -50,21 +50,43 @@ export default {
   },
 
   created () {
+    _.set(this.formData, 'index', null)
+    this.setCreateVolumeIndex(null)
     this.getVolumeList(this.novel.novel._id)
   },
 
   methods: {
-      getVolumeList(novelId) {
-          VolumeService.getVolumeById(novelId)
-            .then(response => {
-              var sortingObj = response.data
-              sortingObj = _.orderBy(sortingObj, 'index', 'asc')
-              this.volumeList = sortingObj
-            })
-            .catch(e => {
-                console.log(e)
-            })
-      }
+    ...mapActions([
+      'setCreateVolumeIndex'
+    ]),
+    getVolumeList(novelId) {
+        VolumeService.getVolumeById(novelId)
+          .then(response => {
+            var sortingObj = response.data
+            sortingObj = _.orderBy(sortingObj, 'index', 'asc')
+            sortingObj = _.filter(sortingObj, (item) => { return !item.isStickyHeader })
+            this.setCreateVolumeIndex(_.size(sortingObj) ? _.size(sortingObj) : 0)
+            this.volumeList = sortingObj
+          })
+          .catch(e => {
+              console.log(e)
+          })
+    },
+    dragEnd() {
+      const list = _.reduce(this.volumeList, (result, val, key) => {
+          const cloneObj = val
+          cloneObj['index'] = key
+
+          const obj = {}
+          obj['id'] = cloneObj._id
+          obj['index'] = cloneObj.index
+
+          result.push(obj)
+          return result
+      }, [])
+      console.log(list)
+      VolumeService.updateIndex(list)
+    }
   }
 }
 </script>

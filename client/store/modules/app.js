@@ -16,7 +16,8 @@ const state = {
         novel: null,
         currentNovelId: null,
         currentVolumeId: null,
-        createChapterIndex: null
+        createChapterIndex: null,
+        createVolumeIndex: null
     }
 }
 
@@ -59,6 +60,10 @@ const mutations = {
 
     [types.SET_CHAPTER_INDEX](state, chapterIndex) {
         _.set(state.novel, 'createChapterIndex', chapterIndex)
+    },
+
+    [types.SET_VOLUME_INDEX](state, volumeIndex) {
+        _.set(state.novel, 'createVolumeIndex', volumeIndex)
     }
 }
 

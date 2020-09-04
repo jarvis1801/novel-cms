@@ -16,6 +16,10 @@ class VolumeService {
     delete(id) {
         return http.delete(`/volume/${id}`)
     }
+
+    updateIndex(data) {
+        return http.put(`/volume/updateIndex`, data)
+    }
 }
 
 export default new VolumeService()
