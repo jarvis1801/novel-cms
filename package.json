@@ -23,7 +23,7 @@
         "npm": ">=3"
     },
     "scripts": {
-        "build": "cross-env NODE_ENV=production node build/build.js",
+        "build": "cross-env NODE_ENV=production TYPE=prod node build/build.js",
         "clean": "rm -rf dist",
         "dev": "cross-env NODE_ENV=development TYPE=dev node build/dev-server.js",
         "prod": "cross-env NODE_ENV=development TYPE=prod node build/dev-server.js",
